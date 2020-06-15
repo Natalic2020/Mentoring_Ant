@@ -20,7 +20,7 @@
 		<pathelement location="../../Users/NSvitlyc/.p2/pool/plugins/org.junit_4.13.0.v20200204-1500.jar" />
 		<pathelement location="../../Users/NSvitlyc/.p2/pool/plugins/org.hamcrest.core_1.3.0.v20180420-1519.jar" />
 	</path>
-	<path id="Mentoring_Ant.classpath">
+	<path id="mentoring_ant.classpath">
 		<pathelement location="bin" />
 		<path refid="JUnit 5.libraryclasspath" />
 	</path>
@@ -40,18 +40,18 @@
 		<echo message="${ant.project.name}: ${ant.file}" />
 		<javac destdir="bin" includeantruntime="false">
 			<src path="src" />
-			<classpath refid="Mentoring_Ant.classpath" />
+			<classpath refid="mentoring_ant.classpath" />
 		</javac>
 	</target>
-	<target name="Applicaton" depends="compile">
+	<target name="applicaton" depends="compile">
 		<java classname="main.java.ua.com.foxminded.anagrams.Application" failonerror="true" fork="yes">
-			<classpath refid="Mentoring_Ant.classpath" />
+			<classpath refid="mentoring_ant.classpath" />
 		</java>
 	</target>
 	<target name="test" depends="compile">
 		<junitlauncher printsummary="true">
 			<test name="test.java.ua.com.foxminded.anagrams.AnagramTest" />
-			<classpath refid="Mentoring_Ant.classpath" />
+			<classpath refid="mentoring_ant.classpath" />
 		</junitlauncher>
 	</target>
 	<target name="package" depends="compile">
