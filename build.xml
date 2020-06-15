@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<project basedir="." default="compile" name="Mentoring_Ant">
+	<property environment="env" />
+	<property name="classes" value="bin" />
+	<property name="build" value="build" />
+	<path id="JUnit 5.libraryclasspath">
+		<pathelement location="../../Users/NSvitlyc/.p2/pool/plugins/org.junit.jupiter.api_5.6.0.v20200203-2009.jar" />
+		<pathelement location="../../Users/NSvitlyc/.p2/pool/plugins/org.junit.jupiter.engine_5.6.0.v20200203-2009.jar" />
+		<pathelement location="../../Users/NSvitlyc/.p2/pool/plugins/org.junit.jupiter.migrationsupport_5.6.0.v20200203-2009.jar" />
+		<pathelement location="../../Users/NSvitlyc/.p2/pool/plugins/org.junit.jupiter.params_5.6.0.v20200203-2009.jar" />
+		<pathelement location="../../Users/NSvitlyc/.p2/pool/plugins/org.junit.platform.commons_1.6.0.v20200203-2009.jar" />
+		<pathelement location="../../Users/NSvitlyc/.p2/pool/plugins/org.junit.platform.engine_1.6.0.v20200203-2009.jar" />
+		<pathelement location="../../Users/NSvitlyc/.p2/pool/plugins/org.junit.platform.launcher_1.6.0.v20200203-2009.jar" />
+		<pathelement location="../../Users/NSvitlyc/.p2/pool/plugins/org.junit.platform.runner_1.6.0.v20200203-2009.jar" />
+		<pathelement location="../../Users/NSvitlyc/.p2/pool/plugins/org.junit.platform.suite.api_1.6.0.v20200203-2009.jar" />
+		<pathelement location="../../Users/NSvitlyc/.p2/pool/plugins/org.junit.vintage.engine_5.6.0.v20200203-2009.jar" />
+		<pathelement location="../../Users/NSvitlyc/.p2/pool/plugins/org.opentest4j_1.2.0.v20190826-0900.jar" />
+		<pathelement location="../../Users/NSvitlyc/.p2/pool/plugins/org.apiguardian_1.1.0.v20190826-0900.jar" />
+		<pathelement location="../../Users/NSvitlyc/.p2/pool/plugins/org.junit_4.13.0.v20200204-1500.jar" />
+		<pathelement location="../../Users/NSvitlyc/.p2/pool/plugins/org.hamcrest.core_1.3.0.v20180420-1519.jar" />
+	</path>
+	<path id="Mentoring_Ant.classpath">
+		<pathelement location="bin" />
+		<path refid="JUnit 5.libraryclasspath" />
+	</path>
+	<target name="clean">
+		<delete dir="bin" />
+		<delete dir="${build}" />
+	</target>
+	<target name="init">
+		<mkdir dir="bin" />
+		<copy includeemptydirs="false" todir="bin">
+			<fileset dir="src">
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+	</target>
+	<target depends="init" name="compile">
+		<echo message="${ant.project.name}: ${ant.file}" />
+		<javac destdir="bin" includeantruntime="false">
+			<src path="src" />
+			<classpath refid="Mentoring_Ant.classpath" />
+		</javac>
+	</target>
+	<target name="Applicaton" depends="compile">
+		<java classname="main.java.ua.com.foxminded.anagrams.Application" failonerror="true" fork="yes">
+			<classpath refid="Mentoring_Ant.classpath" />
+		</java>
+	</target>
+	<target name="test" depends="compile">
+		<junitlauncher printsummary="true">
+			<test name="test.java.ua.com.foxminded.anagrams.AnagramTest" />
+			<classpath refid="Mentoring_Ant.classpath" />
+		</junitlauncher>
+	</target>
+	<target name="package" depends="compile">
+		<jar destfile="${build}/${ant.project.name}.jar" basedir="${classes}">
+			<manifest>
+				<attribute name="Anagrams_Ant" value="${ant.project.name}" />
+			</manifest>
+		</jar>
+	</target>
+</project>
